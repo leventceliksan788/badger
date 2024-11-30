@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badger Meme Token</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+   
+        color: #fff;
+    }
+
+    .container {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 40px 20px;
+        border-radius: 10px;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+        width: 300px;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .count_down_numbers {
+        text-align: center;
+    }
+
+    .single_items {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    .token-address {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .token-address input[type="text"] {
+        width: 280px;
+        padding: 12px 15px;
+        font-size: 15px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        outline: none;
+        background-color: #34495e;
+        color: #ecf0f1;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .token-address button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        background-color: #e74c3c;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 0 4px 4px 0;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .token-address button:hover {
+        background-color: #f39c12;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .token-address button i {
+        margin-right: 8px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        background-color: #e74c3c;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: #f39c12;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .small-button {
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #ecf0f1;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        outline: none;
+        background-color: #34495e;
+        color: #ecf0f1;
+        transition: box-shadow 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="count_down_numbers text-center mb-3">
+        <h1><img src="img/logo.png" style="width: 50%"></h1>
+        <h3>Presale Price: 0.01$</h3>
+
+        <div class="single_items day">
+            <h3 id="days">0</h3>
+            <span>Days</span>
+        </div>
+        <div class="single_items hours">
+            <h3 id="hours">0</h3>
+            <span>Hours</span>
+        </div>
+        <div class="single_items mins">
+            <h3 id="minutes">0</h3>
+            <span>Minutes</span>
+        </div>
+        <div class="single_items secounds">
+            <h3 id="seconds">0</h3>
+            <span>Seconds</span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label for="bnbAmount">Enter USTC amount:</label>
+        <input type="number" id="bnbAmount" step="0.00000001" oninput="calculateTokens()">
+    </div>
+    <div>
+        <p>You will receive: <span id="tokenAmount">0</span> BMT Token</p>
+    </div>
+
+    <div class="token-address">
+        <input type="text" id="tokenAddress" value="0x79AcA5c06A1E2f6dd5Ab8b715c8D1d1CCd37145d" readonly>
+        
+<br>
+
+
+
+
+    </div>
+
+            <button id="copyButton">
+            <i class="fas fa-copy"></i> Copy
+        </button>
+        
+</div>
+
+<script>
+    var targetDate = new Date("2024-09-18T08:00:00");
+
+    var timer = setInterval(function() {
+        var now = new Date().getTime();
+        var timeRemaining = targetDate - now;
+
+        var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("seconds").innerHTML = seconds;
+
+        if (timeRemaining <= 0) {
+            clearInterval(timer);
+            document.getElementById("days").innerHTML = 0;
+            document.getElementById("hours").innerHTML = 0;
+            document.getElementById("minutes").innerHTML = 0;
+            document.getElementById("seconds").innerHTML = 0;
+        }
+    }, 1000);
+
+    function calculateTokens() {
+        var ustcAmount = document.getElementById("bnbAmount").value;
+        var tokenPrice = 0.01; // 1 USTC'nin karşılığı
+        var tokens = ustcAmount / tokenPrice;
+        document.getElementById("tokenAmount").innerText = tokens.toFixed(2);
+    }
+
+    document.getElementById("copyButton").addEventListener("click", function() {
+        var copyText = document.getElementById("tokenAddress");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        alert("Copied the text: " + copyText.value);
+    });
+</script>
+
+</body>
+</html>
